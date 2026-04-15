@@ -1,0 +1,87 @@
+@Metadata.layer: #PARTNER
+@UI: {
+  headerInfo : {typeName: 'Form Uploader',
+  typeNamePlural: 'Form Uploader',
+  title:{ type: #STANDARD, value: 'Fileid' }
+   },
+   presentationVariant: [{
+        sortOrder: [{
+            by: 'Fileid',
+            direction: #DESC
+        }],visualizations: [{
+            type: #AS_LINEITEM
+        }]
+    }]
+ }
+ @Search.searchable: true
+annotate entity ZI_TEMP with
+{
+  @UI.facet: [
+              { id: 'idFile',
+               purpose: #STANDARD,
+               position: 50,
+               label: 'File Upload',
+               type: #IDENTIFICATION_REFERENCE
+                },
+                { id: 'idUSER',
+               purpose: #HEADER,
+               position: 10,
+               label: 'File Upload',
+               type: #DATAPOINT_REFERENCE,
+               targetQualifier: 'tq_user'
+                },
+                { id: 'idfile',
+               purpose: #HEADER,
+               position: 30,
+               label: 'File Upload',
+               type: #DATAPOINT_REFERENCE,
+               targetQualifier: 'tq_file'
+                }
+                 ]
+
+  @UI.dataPoint: {  title: 'Person Responsible'  ,qualifier: 'tq_user'  }
+  Enduser;
+
+  @UI.dataPoint: {  title: 'File Status' , qualifier: 'tq_file'  }
+  Filestatus;
+
+  @EndUserText.label: 'Form Name'
+  @UI.lineItem: [{ position: 10 , label: 'Form Name' , importance: #HIGH }]
+  @UI.identification: [{ position: 10 , label: 'Form Name' }]
+  @UI.selectionField: [{ position: 10 }]
+  Formname;
+
+  @EndUserText.label: 'File Name'
+  @UI.lineItem: [ { position: 20 ,   label: 'File Name' } ]
+  @UI.identification: [ { position: 20 ,  label: 'File Name' } ]
+  Filename;
+
+  @EndUserText.label: 'Adobe Attachment'
+  @UI.lineItem: [ { position: 30 ,  importance: #HIGH, label: 'Adobe Attachment' } ]
+  @UI.identification: [ { position: 30 ,  label: 'Adobe Attachment' } ]
+  Attachment;
+
+
+
+  @EndUserText.label: 'Mime Type'
+  @UI.lineItem: [ { position: 40 ,   label: 'Mime Type' } ]
+  @UI.identification: [ { position: 40 ,  label: 'Mime Type' } ]
+  Mimetype;
+
+  @EndUserText.label: 'Comments'
+  @UI.lineItem: [ { position: 50 ,   label: 'Comments' } ]
+  @UI.identification: [ { position: 50 ,  label: 'Comments' } ]
+  Comments;
+
+  @EndUserText.label: 'Created At'
+  @UI.lineItem: [ { position: 60 ,   label: 'Created At' } ]
+  @UI.identification: [ { position: 60 ,  label: 'Created At' } ]
+  Localcreatedat;
+
+  @EndUserText.label: 'Changed At'
+  @UI.lineItem: [ { position: 70 ,   label: 'Changed At' } ]
+  @UI.identification: [ { position: 70 ,  label: 'Changed At' } ]
+  Locallastchangedat;
+  @Search.defaultSearchElement: true
+  _log;
+}

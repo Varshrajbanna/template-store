@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service definition for Template Store'
+define service ZSD_TEMPST {
+  expose ZI_TEMP;
+  expose ZI_TEMPLOG;
+}

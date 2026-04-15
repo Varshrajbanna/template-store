@@ -1,0 +1,87 @@
+managed implementation in class zbp_i_temp unique;
+strict ( 2 );
+with draft;
+define behavior for ZI_TEMP alias TemplateStore
+persistent table zdb_temptab
+draft table zdrft_temp
+etag master
+Locallastchangedat
+lock master total etag Locallastchangedat
+authorization master ( instance )
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly ) EndUser, FileId, Endusername, Filestatus,
+  Localcreatedby, Localcreatedat, Localcreateddate, Localcreatedtime, Lastchangedat, LastChanged_At, LastChangedDate, LastChangedBy, Locallastchangedby, Locallastchangedat, Locallastchangeddate, Locallastchangedtime;
+  field ( readonly : update ) FormName;
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare{  }
+  association _log { create ( features : instance ); with draft; }
+  determination createdby on modify { create;}
+  determination changedat on modify {update;}
+  validation comments on save { create; }
+  mapping for zdb_temptab
+    {
+      Enduser              = enduser;
+      Fileid               = fileid;
+      Filename             = filename;
+      FormName             = formname;
+      Filestatus           = filestatus;
+      Attachment           = attachment;
+      Mimetype             = mimetype;
+      Endusername          = endusername;
+      Comments             = comments;
+      Localcreatedby       = localcreatedby;
+      Localcreatedat       = localcreatedat;
+      Localcreateddate     = localcreateddate;
+      Localcreatedtime     = localcreatedtime;
+      Lastchangedat        = lastchangedat;
+      LastChanged_At       = last_changed_at;
+      LastChangedDate      = last_changed_date;
+      LastChangedBy        = last_changed_by;
+      Locallastchangedby   = locallastchangedby;
+      Locallastchangedat   = locallastchangedat;
+      Locallastchangeddate = locallastchangeddate;
+      Locallastchangedtime = locallastchangedtime;
+    }
+}
+define behavior for ZI_TEMPLOG alias LogChanges
+persistent table zdb_templog
+draft table zdrft_templog
+lock dependent by _Head
+authorization dependent by _Head
+etag master Lastchangedat
+{
+  update;
+  delete;
+  field ( readonly ) Fileid, Enduser, Endusername, Logchange,
+  Localcreatedby, Localcreatedat, Localcreateddate, Localcreatedtime, Lastchangedat, LastChanged_At, LastChangedDate, LastChangedBy, Locallastchangedby, Locallastchangedat, Locallastchangeddate, Locallastchangedtime;
+  association _Head { with draft; }
+  mapping for zdb_templog {
+      Enduser              = enduser;
+      Fileid               = fileid;
+      Filename             = filename;
+      Logchange            = logchange;
+      FormName             = formname;
+      Filestatus           = filestatus;
+      Attachment           = attachment;
+      Mimetype             = mimetype;
+      Endusername          = endusername;
+      Comments             = comments;
+      Localcreatedby       = localcreatedby;
+      Localcreatedat       = localcreatedat;
+      Localcreateddate     = localcreateddate;
+      Localcreatedtime     = localcreatedtime;
+      Lastchangedat        = lastchangedat;
+      LastChanged_At       = last_changed_at;
+      LastChangedDate      = last_changed_date;
+      LastChangedBy        = last_changed_by;
+      Locallastchangedby   = locallastchangedby;
+      Locallastchangedat   = locallastchangedat;
+      Locallastchangeddate = locallastchangeddate;
+      Locallastchangedtime = locallastchangedtime;
+    }}
